@@ -49,9 +49,8 @@ export async function saveImpl(
 
         if (utils.isExactKeyMatch(primaryKey, restoredKey)) {
             core.info(
-                `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
+                `Cache hit occurred on the primary key ${primaryKey}, always saving cache!`
             );
-            return;
         }
 
         const cachePaths = utils.getInputAsArray(Inputs.Path, {

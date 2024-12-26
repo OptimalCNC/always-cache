@@ -1,5 +1,5 @@
-name: 'Cache'
-description: 'Cache artifacts like dependencies and build outputs to improve workflow execution time'
+name: 'Always-Cache'
+description: 'Fork action/cache to always save the cache'
 author: 'GitHub'
 inputs:
   path:
@@ -41,7 +41,7 @@ runs:
   using: 'node20'
   main: 'dist/restore/index.js'
   post: 'dist/save/index.js'
-  post-if: "success()"
+  post-if: "always()"
 branding:
   icon: 'archive'
   color: 'gray-dark'

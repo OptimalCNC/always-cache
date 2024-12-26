@@ -192,13 +192,30 @@ test("save with exact match returns early", async () => {
         .mockImplementationOnce(() => {
             return primaryKey;
         });
-    const saveCacheMock = jest.spyOn(cache, "saveCache");
+
+    const inputPath = "node_modules";
+    testUtils.setInput(Inputs.Path, inputPath);
+    testUtils.setInput(Inputs.UploadChunkSize, "4000000");
+
+    const cacheId = 4;
+    const saveCacheMock = jest.spyOn(cache, "saveCache")
+        .mockImplementationOnce(() => {
+            return Promise.resolve(cacheId);
+        });
 
     await saveImpl(new StateProvider());
 
-    expect(saveCacheMock).toHaveBeenCalledTimes(0);
+    expect(saveCacheMock).toHaveBeenCalledTimes(1);
+    expect(saveCacheMock).toHaveBeenCalledWith(
+        [inputPath],
+        primaryKey,
+        {
+            uploadChunkSize: 4000000
+        },
+        false
+    );
     expect(infoMock).toHaveBeenCalledWith(
-        `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
+        `Cache hit occurred on the primary key ${primaryKey}, always saving cache!`
     );
     expect(failedMock).toHaveBeenCalledTimes(0);
 });

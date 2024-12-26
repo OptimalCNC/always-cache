@@ -67786,8 +67786,7 @@ function saveImpl(stateProvider) {
             // NO-OP in case of SaveOnly action
             const restoredKey = stateProvider.getCacheState();
             if (utils.isExactKeyMatch(primaryKey, restoredKey)) {
-                core.info(`Cache hit occurred on the primary key ${primaryKey}, not saving cache.`);
-                return;
+                core.info(`Cache hit occurred on the primary key ${primaryKey}, always saving cache!`);
             }
             const cachePaths = utils.getInputAsArray(constants_1.Inputs.Path, {
                 required: true
